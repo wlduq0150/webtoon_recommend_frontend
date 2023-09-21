@@ -4,7 +4,7 @@ export interface RecommendProps {
 
 export interface RecommendKeywordProps {
     genres?: string[];
-    modifireGenres: (value: string[]) => void;
+    modifierGenres: (value: string[]) => void;
 }
 
 export interface KeywordProps {
@@ -16,3 +16,13 @@ export interface KeywordProps {
 export interface RecommendButtonProps {
     onClick: (e: any) => void;
 }
+
+export interface SearchKeyWordListProps {
+    isdisplay: boolean;
+    keywords: string[];
+    onClick: (e: any) => void;
+    onMouseDown: (e: any) => void;
+}
+
+export interface RecommendSearchProps extends RecommendKeywordProps{}
+

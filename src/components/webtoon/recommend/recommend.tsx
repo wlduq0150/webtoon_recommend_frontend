@@ -10,6 +10,7 @@ import WebtoonList from "../webtoon/webtoonList";
 // eslint-disable-next-line
 import Loading from "../../extras/loading";
 import RecommendButton from "./recommendButton";
+import { server } from "../../constants";
 
 const RecommendBlock = styled.div`
     display: flex;
@@ -29,7 +30,7 @@ const Recommend = (props: RecommendProps) => {
         if (genres && startRecommend) {
             console.log(genres); 
             const response: any = await axios.post(
-                "https://finding-restaurant.run.goorm.site/recommend/webtoons", {
+                server + "/recommend/webtoons", {
                 userId: "test",
                 genres,
                 newExcludeWebtoonIds: recommendWebtoonIds
@@ -62,7 +63,6 @@ const Recommend = (props: RecommendProps) => {
         if (props.genres) {
             modifierGenres(props.genres);
         }
-        modifierGenres(["판타지", "회귀물", "복수물", "전쟁", "비극적", "마법", "대마법사"]);
     }, [props.genres]);
 
     const onClick = () => {
@@ -71,8 +71,8 @@ const Recommend = (props: RecommendProps) => {
     
     return (
         <RecommendBlock>
-            <RecommendKeyWord genres={genres} modifireGenres={modifierGenres}></RecommendKeyWord>
-            <RecommendSearch></RecommendSearch>
+            <RecommendKeyWord genres={genres} modifierGenres={modifierGenres}></RecommendKeyWord>
+            <RecommendSearch genres={genres} modifierGenres={modifierGenres}></RecommendSearch>
             {
                 isLoading ?
                 <Loading></Loading>

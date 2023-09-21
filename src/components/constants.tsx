@@ -1,1 +1,1 @@
-export const server = "https://finding-restaurant.run.goorm.site";
+export const server = "http://localhost:5000";

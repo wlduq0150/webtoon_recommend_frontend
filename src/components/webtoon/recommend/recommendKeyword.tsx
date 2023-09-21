@@ -66,7 +66,7 @@ const RecommendKeyWord = (props: RecommendKeywordProps) => {
         const removedGenres: string[] = props.genres.filter(
             (genre) => { return genre !== e.target.children[0].getAttribute("genre")}
         );
-        props.modifireGenres(removedGenres);
+        props.modifierGenres(removedGenres);
     }
 
     return (

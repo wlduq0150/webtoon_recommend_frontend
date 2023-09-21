@@ -12,7 +12,7 @@ const Thumbnail = styled.div<ThumnailProps>`
     width: 100%;
     height: 200px;
 
-    background-image: url(${(props) => props.thumbnail});
+    background-image: url(${(props: ThumnailProps) => props.thumbnail});
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;

@@ -30,7 +30,7 @@ const NavCategoryBlock = styled.div<DayWebtoonNavCategoryProps>`
     font-weight: 600;
 
     color: ${
-        (props) => 
+        (props: DayWebtoonNavCategoryProps) => 
         props.name === props.day ?
         "rgb(0, 220, 100)" :
         "rgb(80, 80, 80)"
