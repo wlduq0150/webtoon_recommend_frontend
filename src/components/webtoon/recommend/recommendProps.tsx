@@ -24,5 +24,8 @@ export interface SearchKeyWordListProps {
     onMouseDown: (e: any) => void;
 }
 
-export interface RecommendSearchProps extends RecommendKeywordProps{}
+export interface RecommendSearchProps extends RecommendKeywordProps{
+    episodeLength: number;
+    modifierEpisodeLength: (e: any) => void;
+}
 

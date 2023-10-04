@@ -24,9 +24,11 @@ const WebtoonList = (props: WebtoonListProps) => {
                             key={dayWebtoon.webtoonId}
                             webtoonId={dayWebtoon.webtoonId}
                             title={dayWebtoon.title}
-                            author={dayWebtoon.author}
+                            category={dayWebtoon.category}
+                            updateDay={dayWebtoon.updateDay}
                             thumbnail={dayWebtoon.thumbnail}
                             service={dayWebtoon.service}
+                            episodeLength={dayWebtoon.episodeLength}
                             fanCount={dayWebtoon.fanCount}
                         ></Webtoon>
                     }

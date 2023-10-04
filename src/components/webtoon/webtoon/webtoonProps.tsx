@@ -7,9 +7,11 @@ export interface WebtoonListProps {
 export interface WebtoonProps {
     webtoonId: string;
     title: string | null;
-    author: string[] | string | null;
+    category: string | null;
+    updateDay: string | null;
     thumbnail: string;
     service: string | null;
+    episodeLength: number | null;
     fanCount: number | null;
 }
 

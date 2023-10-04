@@ -16,8 +16,11 @@ export interface Webtoon {
 export type DayWebtoonType = {
     webtoonId: string;
     title: string | null;
+    category: string | null;
+    updateDay: string | null;
     author: string[] | string | null;
     thumbnail: string;
     service: string | null;
-    fanCount: number | null;
+    episodeLength: number | null;
+    fanCount: number;
 }

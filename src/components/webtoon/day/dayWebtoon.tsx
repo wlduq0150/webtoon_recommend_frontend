@@ -19,18 +19,16 @@ const DayWebtoonBlock = styled.div`
 const DayWebtoon = () => {
     const [isLoading, modifierIsLoading] = useState(false);
     const [day, modifierDay] = useState("월");
+    const [allDayWebtoon, modifierAllDayWebtoon] = useState<DayWebtoonType[]>([]);
     const [showWebtoon, modifierShowWebtoon] = useState<number>(0);
     const [dayWebtoons, modifierDayWebtoons] = useState<DayWebtoonType[]>([]);
 
     const getWebtoonForDay = useCallback(
         async (day_: string) => {
-            modifierIsLoading(true);
             const webtoons: any = await axios.get(server + `/webtoons/${day_}`);
             console.log(webtoons);
-            const showWebtoons = webtoons.data.slice(0, showWebtoon);
-            modifierDayWebtoons(showWebtoons);
-            modifierIsLoading(false);
-        }, [showWebtoon]
+            modifierAllDayWebtoon(webtoons.data);
+        }, []
     );
 
     const handleScroll = () => {
@@ -57,6 +55,15 @@ const DayWebtoon = () => {
     useEffect(() => {
         getWebtoonForDay(day);
     }, [day, getWebtoonForDay]);
+
+    useEffect(() => {
+        modifierIsLoading(true);
+
+        const showWebtoons = allDayWebtoon.slice(0, showWebtoon);
+        modifierDayWebtoons(showWebtoons);
+
+        modifierIsLoading(false);
+    }, [showWebtoon, allDayWebtoon])
 
     const onClick = (e: any) => {
         modifierDayWebtoons([]);

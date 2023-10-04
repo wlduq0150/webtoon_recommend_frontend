@@ -21,7 +21,7 @@ const Recommend = (props: RecommendProps) => {
     const [startRecommend, modifierStartRecommend] = useState(false);
     const [isLoading, modifierIsLoading] = useState(false);
     const [genres, modifierGenres] = useState<string[]>([]);
-    // const [search, modifierSearch] = useState<string>("");
+    const [episodeLength, modifierEpisodeLength] = useState<number>(0);
     const [recommendWebtoons, modifierRecommendWebtoons] = useState<DayWebtoonType[]>([]);
     const [recommendWebtoonIds, modifierRecommendWebtoonIds] = useState<string[]>([]);
  
@@ -33,6 +33,7 @@ const Recommend = (props: RecommendProps) => {
                 server + "/recommend/webtoons", {
                 userId: "test",
                 genres,
+                episodeLength,
                 newExcludeWebtoonIds: recommendWebtoonIds
             });
             const webtoons: DayWebtoonType[] = response.data;
@@ -71,8 +72,16 @@ const Recommend = (props: RecommendProps) => {
     
     return (
         <RecommendBlock>
-            <RecommendKeyWord genres={genres} modifierGenres={modifierGenres}></RecommendKeyWord>
-            <RecommendSearch genres={genres} modifierGenres={modifierGenres}></RecommendSearch>
+            <RecommendKeyWord
+                genres={genres} 
+                modifierGenres={modifierGenres}
+            ></RecommendKeyWord>
+            <RecommendSearch
+                genres={genres}
+                episodeLength={episodeLength}
+                modifierGenres={modifierGenres}
+                modifierEpisodeLength={modifierEpisodeLength}
+            ></RecommendSearch>
             {
                 isLoading ?
                 <Loading></Loading>

@@ -31,7 +31,7 @@ const SearchKeyWord = styled.li`
 
     padding-top: 4px;
 
-    border-bottom: 1px solid rgb(0, 0, 0);
+    
 `;
 
 const SearchKeyWordList = (props: SearchKeyWordListProps) => {

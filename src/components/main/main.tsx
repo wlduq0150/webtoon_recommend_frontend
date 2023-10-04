@@ -1,10 +1,12 @@
 import { useState } from "react";
 import styled from "styled-components";
-import Incomplete from "../extras/incomplete";
+// import Incomplete from "../extras/incomplete";
 import WebtooonHeader from "../template/header/header";
 import WebtoonNav from "../template/navigation/navigation";
 import WebtoonTemplate from "../template/template";
 import DayWebtoon from "../webtoon/day/dayWebtoon";
+import FinishWebtoon from "../webtoon/finish/finishWebtoon";
+import Home from "../webtoon/home/home";
 import Recommend from "../webtoon/recommend/recommend";
 
 const MainBlock = styled.div`
@@ -20,9 +22,9 @@ const Main = () => {
             <WebtoonTemplate>
                 <WebtooonHeader></WebtooonHeader>
                 <WebtoonNav selected={selected} modifierSelected={modifierSelected}></WebtoonNav>
-                { selected === "home" ? <Incomplete></Incomplete> : null }
+                { selected === "home" ? <Home></Home> : null }
                 { selected === "day" ? <DayWebtoon></DayWebtoon> : null }
-                { selected === "finish" ? <Incomplete></Incomplete> : null }
+                { selected === "finish" ? <FinishWebtoon></FinishWebtoon> : null }
                 { selected === "recommend" ? <Recommend></Recommend> : null }
                 
             </WebtoonTemplate>

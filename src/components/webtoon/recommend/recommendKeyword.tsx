@@ -3,9 +3,9 @@ import { KeywordProps, RecommendKeywordProps } from "./recommendProps";
 import { TiDelete } from "react-icons/ti";
 
 const RecommendKeywordBlock = styled.div`
-    width: 90%;
+    width: 85%;
     height: auto;
-    min-height: 40px;
+    min-height: 100px;
 
     margin: 0 auto;
     margin-top: 20px;
@@ -17,15 +17,16 @@ const RecommendKeywordBlock = styled.div`
     gap: 10px;
 
     border-radius: 16px;
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.15);
 
-    background-color: rgba(230, 230, 230, 1.0);
+    background-color: rgba(250, 250, 250, 0.5);
 `;
 
 const KeywordBlock = styled.div`
     height: 30px;
 
     padding: 6px;
+    padding-bottom: 0;
 
     display: flex;
 
