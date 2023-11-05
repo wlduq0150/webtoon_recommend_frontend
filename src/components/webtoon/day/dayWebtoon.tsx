@@ -25,7 +25,7 @@ const DayWebtoon = () => {
 
     const getWebtoonForDay = useCallback(
         async (day_: string) => {
-            const webtoons: any = await axios.get(server + `/webtoons/${day_}`);
+            const webtoons: any = await axios.get(server + `/webtoon/day/${day_}`);
             console.log(webtoons);
             modifierAllDayWebtoon(webtoons.data);
         }, []

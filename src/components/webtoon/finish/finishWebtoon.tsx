@@ -60,7 +60,7 @@ const FinishWebtoon = () => {
 
     const getWebtoonForfinish = useCallback(
         async () => {
-            const response: any = await axios.get(server + `/webtoons/finished`);
+            const response: any = await axios.get(server + `/webtoon/finished`);
             const webtoons: DayWebtoonType[] = response.data;
             webtoons.sort(
                 (a: DayWebtoonType, b: DayWebtoonType) => {
@@ -69,12 +69,15 @@ const FinishWebtoon = () => {
             )
             modifierAllFinishWebtoon(webtoons);
 
-            axios.get(server + "/data-manager/categoryKeyword")
-            .then((res) => {
-                const allCategory_: string[] = res.data;
-                modifierAllCategory([ "전체", ...allCategory_ ]);
-                modifierCategory("전체");
-            });
+
+            modifierAllCategory([ "전체" ]);
+            modifierCategory("전체");
+            // axios.get(server + "/data-manager/categoryKeyword")
+            // .then((res) => {
+            //     const allCategory_: string[] = res.data;
+            //     modifierAllCategory([ "전체", ...allCategory_ ]);
+            //     modifierCategory("전체");
+            // });
         }, []
     );
 
