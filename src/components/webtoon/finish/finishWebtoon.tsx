@@ -69,15 +69,12 @@ const FinishWebtoon = () => {
             )
             modifierAllFinishWebtoon(webtoons);
 
-
-            modifierAllCategory([ "전체" ]);
-            modifierCategory("전체");
-            // axios.get(server + "/data-manager/categoryKeyword")
-            // .then((res) => {
-            //     const allCategory_: string[] = res.data;
-            //     modifierAllCategory([ "전체", ...allCategory_ ]);
-            //     modifierCategory("전체");
-            // });
+            axios.get(server + "/genre/category-keyword")
+            .then((res) => {
+                const allCategory_: string[] = res.data;
+                modifierAllCategory([ "전체", ...allCategory_ ]);
+                modifierCategory("전체");
+            });
         }, []
     );
 

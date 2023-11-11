@@ -124,7 +124,7 @@ const RecommendSearch = (props: RecommendSearchProps) => {
 
     useEffect(() => {
         // 카테고리 불러오기
-        axios.get(server + "/data-manager/categoryKeyword")
+        axios.get(server + "/genre/category-keyword")
         .then((res: any) => {
             const categorys = res.data;
             modifierAllCategory(categorys);
@@ -135,9 +135,11 @@ const RecommendSearch = (props: RecommendSearchProps) => {
         modifierAllEpisodeLength(episodeLengthList);
 
         // 장르 불러오기
-        axios.get(server + "/data-manager/genreKeyword")
+        axios.get(server + "/genre/genre-keyword")
         .then((res: any) => {
-            const genres = res.data;
+            console.log(res);
+            const datas: any[] = res.data;
+            const genres = datas.map((data) => data?.keyword);
             modifierAllKeyWord(genres);
             modifierShowKeyWord(genres);
         });

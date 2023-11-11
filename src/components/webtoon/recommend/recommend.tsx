@@ -29,21 +29,24 @@ const Recommend = (props: RecommendProps) => {
         modifierIsLoading(true);
         if (genres && startRecommend) {
             console.log(genres); 
-            const response: any = await axios.post(
-                server + "/recommend/webtoons", {
+            const response = await axios.post(
+                server + "/recommend/recommend-webtoon", {
                 userId: "test",
-                genres,
+                category: genres[0],
+                genres: genres.slice(1),
                 episodeLength,
                 newExcludeWebtoonIds: recommendWebtoonIds
             });
-            const webtoons: DayWebtoonType[] = response.data;
-            const webtoonIds: string[] = (
-                webtoons.map(
-                    (webtoon) => {
-                        return webtoon.webtoonId;
-                    }
-                )
-            );
+            const webtoonIds: string[] = response.data;
+
+            const requestWebtoonPromises = webtoonIds.map((webtoonId) => {
+                return axios.get(server + `/webtoon/content/${webtoonId}`);
+            });
+            
+            const webtoons: DayWebtoonType[] = (await Promise.all(requestWebtoonPromises)).map((res) => {
+                return res.data;
+            });
+
             modifierRecommendWebtoons(webtoons);
             modifierRecommendWebtoonIds(webtoonIds);
         }
