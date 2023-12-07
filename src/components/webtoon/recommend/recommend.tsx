@@ -11,6 +11,7 @@ import WebtoonList from "../webtoon/webtoonList";
 import Loading from "../../extras/loading";
 import RecommendButton from "./recommendButton";
 import { server } from "../../constants";
+import { useNavigate } from "react-router-dom";
 
 const RecommendBlock = styled.div`
     display: flex;
@@ -24,31 +25,44 @@ const Recommend = (props: RecommendProps) => {
     const [episodeLength, modifierEpisodeLength] = useState<number>(0);
     const [recommendWebtoons, modifierRecommendWebtoons] = useState<DayWebtoonType[]>([]);
     const [recommendWebtoonIds, modifierRecommendWebtoonIds] = useState<string[]>([]);
+    const navigator = useNavigate();
  
     const getRecommendWebtoons = useCallback(async () => {
         modifierIsLoading(true);
-        if (genres && startRecommend) {
-            console.log(genres); 
-            const response = await axios.post(
-                server + "/recommend/recommend-webtoon", {
-                userId: "test",
-                category: genres[0],
-                genres: genres.slice(1),
-                episodeLength,
-                newExcludeWebtoonIds: recommendWebtoonIds
-            });
-            const webtoonIds: string[] = response.data;
-
-            const requestWebtoonPromises = webtoonIds.map((webtoonId) => {
-                return axios.get(server + `/webtoon/content/${webtoonId}`);
-            });
-            
-            const webtoons: DayWebtoonType[] = (await Promise.all(requestWebtoonPromises)).map((res) => {
-                return res.data;
-            });
-
-            modifierRecommendWebtoons(webtoons);
-            modifierRecommendWebtoonIds(webtoonIds);
+        try {
+            if (genres && startRecommend) {
+                const response = await axios.post(
+                    server + "/recommend/recommend-webtoon", {
+                    userId: 1,
+                    category: genres[0],
+                    genres: genres.slice(1),
+                    episodeLength,
+                    newExcludeWebtoonIds: recommendWebtoonIds
+                }, {
+                    headers: {
+                        Authorization: "Bearer " + localStorage.getItem("accessToken")
+                    }
+                });
+                
+                const webtoonIds: string[] = response.data;
+    
+                const requestWebtoonPromises = webtoonIds.map((webtoonId) => {
+                    return axios.get(server + `/webtoon/content/${webtoonId}`);
+                });
+                
+                const webtoons: DayWebtoonType[] = (await Promise.all(requestWebtoonPromises)).map((res) => {
+                    return res.data;
+                });
+    
+                modifierRecommendWebtoons(webtoons);
+                modifierRecommendWebtoonIds(webtoonIds);
+            }  
+        } catch (e: any) {
+            console.log(e.message);
+            if (e.response.status === 401 && e.message !== "accessToken expired") {
+                window.alert("로그인이 필요합니다!");
+                navigator("/login");
+            }
         }
         modifierIsLoading(false);
         modifierStartRecommend(false);

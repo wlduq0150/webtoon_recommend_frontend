@@ -1,10 +1,7 @@
 import styled from "styled-components";
 import { CiSearch } from "react-icons/ci";
-import { MdOutlineMenu } from "react-icons/md";
-
-// image
-const logoImage = require("../../../images/header_logo.png");
-
+import Sidebar from "../sidebar/sidebar";
+import { logoImage } from "../../constants";
 
 const HeaderBox = styled.div`
     width: 100%;
@@ -32,21 +29,13 @@ const SearchButton = styled.div`
     padding: 6px;
 `;
 
-const MyMenuButton = styled.div`
-    position: absolute;
-    right: 12px;
-
-    margin-top:8px;
-    padding: 6px;
-`;
-
 
 const WebtooonHeader = () => {
     return (
         <HeaderBox>
             <HeaderLogo src={logoImage}></HeaderLogo>
             <SearchButton>{<CiSearch size={32} />}</SearchButton>
-            <MyMenuButton>{<MdOutlineMenu size={32} />}</MyMenuButton>
+            <Sidebar></Sidebar>
         </HeaderBox>
     )
 }

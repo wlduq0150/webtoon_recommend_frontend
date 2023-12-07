@@ -13,7 +13,7 @@ const MainBlock = styled.div`
     margin: 0;
     width: 100%;
     background: gray;
-`
+`;
 
 const Main = () => {
     const [selected, modifierSelected] = useState("home");

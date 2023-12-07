@@ -201,7 +201,7 @@ const RecommendSearch = (props: RecommendSearchProps) => {
     }
 
     const onEpisodeLengthChange = (e: any) => {
-        props.modifierEpisodeLength(e.target.value);
+        props.modifierEpisodeLength(parseInt(e.target.value));
     }
 
     const onSearchChange = (e: any) => {
