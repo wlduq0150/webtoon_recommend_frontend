@@ -3,6 +3,10 @@ import { MdOutlineMenu } from 'react-icons/md';
 import styled from 'styled-components';
 import { SidebarProps } from './sidebarProps';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { authState } from '../../store/state/authState';
+import axios from 'axios';
+import { server } from '../../constants';
 
 const SideBox = styled.div`
     background-color: rgb(250, 255, 255);
@@ -61,7 +65,9 @@ const Sidebar = (props: SidebarProps) => {
     const [width, modifierWidth] = useState(props.width ? props.width : 220);
     const [isShow, modifierIsShow] = useState(false);
     const [sidePos, modifierSidePos] = useState(-width);
+    const userId = useSelector<authState, number>(state => state.id);
     const navigator = useNavigate();
+    const dispatch = useDispatch();
     const side = useRef<HTMLDivElement>(null);
 
     const sideButtonOnClick = (e: any) => {
@@ -73,6 +79,31 @@ const Sidebar = (props: SidebarProps) => {
             modifierSidePos(-width);
         }
     };
+
+    const onLogoutClick = async (e: any) => {
+        try {
+            const refreshToken = localStorage.getItem("refreshToken");
+
+            const response = await axios.post(server + "/auth/logout", {}, {
+                headers: {
+                    Authorization: "Bearer " + refreshToken
+                }
+            });
+
+            console.log(response);
+
+            if (!response.data) {
+                window.alert("로그아웃 실패");
+                return;
+            }
+
+            localStorage.clear();
+            dispatch({ type: "logout" });
+            window.alert("로그아웃 성공");
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     const onSideMenuClick = (e: any) => {
         navigator(e.target.dataset.value);
@@ -117,8 +148,17 @@ const Sidebar = (props: SidebarProps) => {
                 )}
 
                 <SideContent>
-                    <SideSpan data-value="login" onClick={onSideMenuClick}>로그인</SideSpan>
-                    <SideSpan data-value="signup" onClick={onSideMenuClick}>회원가입</SideSpan>
+                    {
+                        userId < 0 ? 
+                        <div>
+                            <SideSpan data-value="login" onClick={onSideMenuClick}>로그인</SideSpan>
+                            <SideSpan data-value="signup" onClick={onSideMenuClick}>회원가입</SideSpan>
+                        </div> :
+                        <div>
+                            <SideSpan data-value="profile" onClick={onSideMenuClick}>프로필</SideSpan>
+                            <SideSpan data-value="logout" onClick={onLogoutClick}>로그아웃</SideSpan>
+                        </div>
+                    }
                 </SideContent>
             </SideBox>
         </div>

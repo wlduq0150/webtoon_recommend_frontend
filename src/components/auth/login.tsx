@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { logoImage, server } from '../constants';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 const Container = styled.div`
     width: 100%;
@@ -79,6 +80,7 @@ const Login = () => {
     const [email, modifierEmail] = useState<string>('');
     const [password, modifierPassword] = useState<string>('');
     const navigator = useNavigate();
+    const dispatch = useDispatch();
 
     const onEmailChange = (e: any) => {
         modifierEmail(e.target.value);
@@ -101,6 +103,8 @@ const Login = () => {
 
         localStorage.setItem("accessToken", response.data.accessToken);
         localStorage.setItem("refreshToken", response.data.refreshToken);
+
+        dispatch({ type: "login", id: response.data.userId })
 
         navigator("/");
     };

@@ -12,6 +12,8 @@ import Loading from "../../extras/loading";
 import RecommendButton from "./recommendButton";
 import { server } from "../../constants";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { authState } from "../../store/state/authState";
 
 const RecommendBlock = styled.div`
     display: flex;
@@ -25,24 +27,34 @@ const Recommend = (props: RecommendProps) => {
     const [episodeLength, modifierEpisodeLength] = useState<number>(0);
     const [recommendWebtoons, modifierRecommendWebtoons] = useState<DayWebtoonType[]>([]);
     const [recommendWebtoonIds, modifierRecommendWebtoonIds] = useState<string[]>([]);
+    const userId = useSelector<authState, number>(state => state.id);
     const navigator = useNavigate();
  
     const getRecommendWebtoons = useCallback(async () => {
         modifierIsLoading(true);
         try {
+            const accessToken = localStorage.getItem("accessToken");
+
+            if (userId === -1 || !accessToken) {
+                window.alert("로그인이 필요합니다");
+                return navigator("/login");
+            }
+
             if (genres && startRecommend) {
                 const response = await axios.post(
                     server + "/recommend/recommend-webtoon", {
-                    userId: 1,
+                    userId,
                     category: genres[0],
                     genres: genres.slice(1),
                     episodeLength,
                     newExcludeWebtoonIds: recommendWebtoonIds
                 }, {
                     headers: {
-                        Authorization: "Bearer " + localStorage.getItem("accessToken")
+                        Authorization: "Bearer " + accessToken
                     }
                 });
+
+                console.log(response);
                 
                 const webtoonIds: string[] = response.data;
     

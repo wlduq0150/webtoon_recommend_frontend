@@ -21,8 +21,8 @@ const WebtoonList = (props: WebtoonListProps) => {
                 props.dayWebtoons.map(
                     (dayWebtoon: DayWebtoonType) => {
                         return <Webtoon 
-                            key={dayWebtoon.webtoonId}
-                            webtoonId={dayWebtoon.webtoonId}
+                            key={"#" + dayWebtoon.id}
+                            id={dayWebtoon.id}
                             title={dayWebtoon.title}
                             category={dayWebtoon.category}
                             updateDay={dayWebtoon.updateDay}

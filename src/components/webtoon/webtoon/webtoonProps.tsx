@@ -5,7 +5,7 @@ export interface WebtoonListProps {
 }
 
 export interface WebtoonProps {
-    webtoonId: string;
+    id: string;
     title: string | null;
     category: string | null;
     updateDay: string | null;

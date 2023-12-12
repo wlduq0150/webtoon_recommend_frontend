@@ -1,5 +1,5 @@
 export interface Webtoon {
-    webtoonId: string | null;
+    id: string | null;
     title: string | null;
     author: string[] | string | null;
     episodeLength: number | null;
@@ -14,7 +14,7 @@ export interface Webtoon {
 }
 
 export type DayWebtoonType = {
-    webtoonId: string;
+    id: string;
     title: string | null;
     category: string | null;
     updateDay: string | null;

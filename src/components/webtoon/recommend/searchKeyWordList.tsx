@@ -6,7 +6,7 @@ const SearchKeyWordListBlock = styled.ul<SearchKeyWordListProps>`
     max-height: 150px;
 
     display: ${(props: SearchKeyWordListProps) => 
-        props.isdisplay ? "block" : "none"
+        props.isdisplay
     };
 
     border: 1px solid rgb(0, 0, 0);

@@ -18,7 +18,7 @@ export interface RecommendButtonProps {
 }
 
 export interface SearchKeyWordListProps {
-    isdisplay: boolean;
+    isdisplay: string;
     keywords: string[];
     onClick: (e: any) => void;
     onMouseDown: (e: any) => void;

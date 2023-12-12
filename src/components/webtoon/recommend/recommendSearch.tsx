@@ -113,7 +113,7 @@ const SearchIcon = styled.button`
 `;
 
 const RecommendSearch = (props: RecommendSearchProps) => {
-    const [isDisplay, modifierIsDisplay] = useState<boolean>(false);
+    const [isDisplay, modifierIsDisplay] = useState<string>("none");
     const [search, modifierSearch] = useState<string>("");
     const [searchLength, modifierSearchLength] = useState<number>(0);
     const [allCategory, modifierAllCategory] = useState<string[]>([]);
@@ -173,13 +173,13 @@ const RecommendSearch = (props: RecommendSearchProps) => {
     }, [search]);
 
     const onInputFocus = (e: any) => {
-        modifierIsDisplay(true);
+        modifierIsDisplay("block");
     };
     
     const onInputBlur = (e: any) => {
         e.preventDefault();
         if (e.target.className !== "keyWordList") {
-            modifierIsDisplay(false);
+            modifierIsDisplay("none");
         }
     };
 
