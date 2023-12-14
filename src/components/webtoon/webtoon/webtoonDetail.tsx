@@ -28,6 +28,10 @@ const CloseButton = styled.div`
     cursor: pointer;
 `;
 
+const webtoonThumbnail = styled.img`
+    
+`;
+
 
 
 
