@@ -91,22 +91,23 @@ const Login = () => {
     };
 
     const onLoginClick = async (e: any) => {
-        const response = await axios.post(server + "/auth/login", {
-            email,
-            password
-        });
+        try {
+            const response = await axios.post(server + "/auth/login", {
+                email,
+                password
+            });
 
-        if (response.status !== 201) {
+            console.log(response);
+
+            localStorage.setItem("accessToken", response.data.accessToken);
+            localStorage.setItem("refreshToken", response.data.refreshToken);
+
+            dispatch({ type: "login", id: response.data.userId })
+
+            navigator("/");
+        } catch (e) {
             window.alert("로그인에 실패했습니다");
-            return;
-        }
-
-        localStorage.setItem("accessToken", response.data.accessToken);
-        localStorage.setItem("refreshToken", response.data.refreshToken);
-
-        dispatch({ type: "login", id: response.data.userId })
-
-        navigator("/");
+        }      
     };
 
     return (
